@@ -1,0 +1,71 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<style>
+    #fHeader{background-color:blue;}
+</style>
+<div class="text-center">
+    <h1 id="fHeader" class="display-4">Welcome @ViewBag.myname</h1>
+    <h2>Really, welcome @DALcs.GetEmployeeName()</h2>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<button onclick="ChangeHeader()">click me!</button> <!--Outdate approach shouldnt do this anymore! Old Style-->
+
+
+<button id="clicker">Click me 2!</button>
+<br />
+<input id="phone" type="text" /></br>
+<button id="click2">
+    click again!
+</button>
+<script>
+
+    function ChangeHeader() {
+        let h = document.querySelector('#fHeader');  //this is an event, scripted action on click!
+        h.style.fontWeight = 'bold';
+        h.style.backgroundColor = 'coral';
+    }
+
+    function ChangeHeader2() {
+        let h = document.querySelector('#fHeader');  //this is an event, scripted action on click!
+        h.style.fontWeight = 'bold';
+        h.style.backgroundColor = 'red';
+    }
+
+    function ChangeHeader3() {
+        let h = document.querySelector('#fHeader');  //this is an event, scripted action on click!
+        h.style.fontWeight = 'bold';
+        h.style.backgroundColor = 'purple';
+    }
+
+    //function that grabs the text from text box
+    function GrabTest() {
+        let t = document.querySelector('#phone');
+        let h = document.querySelector('#fHeader');
+        h.innerText = `Hello there ${t.value}` ;  //have to use the ` NOT ' for $values
+    }
+
+    let q = 'Hello!'
+    //alert(q);
+
+    for (let i = 0; i < 3; i++) {
+        console.log(i);
+    }
+
+    //Lets grab the buttona nd save it in a variable.
+
+    let b = document.querySelector('#clicker');
+    b.addEventListener('click', ChangeHeader2); //passing changeheader into event listener then eventlistener
+    //sets up an event so taht when the user clicks a button it passes in this function
+    let c = document.querySelector('h1');
+    c.addEventListener('mouseover', ChangeHeader3);
+
+    let b2 = document.querySelector('#click2');
+    b2.addEventListener('click', GrabTest);
+    
+
+
+
+</script>

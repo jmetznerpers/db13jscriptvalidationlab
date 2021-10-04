@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewData["Title"] = "GetForm";
+}
+<style>
+    .warning{
+        font-weight:bold;
+        color:red;
+    }
+</style>
+<h1>GetForm</h1>
+<div id="message" class="warning"></div>
+<form id="myform" method="post" action="/home/useform">
+    <span><label>Product Name:</label> <input type="text" id="nametext" name="nametext" /><div id="message1" class="warning"></div></span><br />
+    <label>Product Category:</label><input type="text" id="cattext" name="cattext" /><div id="message2" class="warning"></div><br />
+    <label>Password:</label><input type="text" id="pass" name="pass" /><div id="message3" class="warning"></div><br />
+    <label>Confirm Password:</label><input type="text" id="cpass" name="cpass" /><div id="message4" class="warning"></div><br />
+
+
+</form>
+<button id="mybutton">Submit</button>
+<script>
+    //this is one way, can also grab form and add a listener to its submit event
+
+    //this is full client side validation still have to do serverside as well
+    function ProcessForm()
+    {
+        var format = /[!#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+        var format2 = /\d/;
+        let n = document.querySelector('#nametext').value;
+        let c = document.querySelector('#cattext').value;
+        let p = document.querySelector('#pass').value;
+        let cp = document.querySelector('#cpass').value;
+
+        if (!n && !c && !p && !cp) { document.querySelector('#message').innerText = 'Please fill in all info!'; }
+        else if (!n) { document.querySelector('#message1').innerText = 'Please fill in the name!'; }
+        else if (!c) { document.querySelector('#message2').innerText = 'Please fill in the category!'; }//{ alert('please fill in all data!'); }
+        else if (!p) { document.querySelector('#message3').innerText = 'Please fill in a password!'; }
+        else if (p.length < 8) { document.querySelector('#message3').innerText = 'Password must be 8 characters!'; }
+        else if (format.test(p) == false) { document.querySelector('#message3').innerText = 'Password must contain a special symbol!'; }
+        else if (format2.test(p) == false) { document.querySelector('#message3').innerText = 'Password must contain a number!'; }
+        else if (!cp) { document.querySelector('#message4').innerText = 'Please confirm your password!'; }
+        else if (p != cp) {document.querySelector('#message4').innerText = 'Your password does not match your confirmed password!'}
+        else { document.querySelector('#myform').submit(); }
+    }
+    function clearMessage() {
+        document.querySelector('#message').innerText = '';
+    }
+    let t1 = document.querySelector('#cattext');
+    t1.addEventListener('keypress', clearMessage);
+
+    let t2 = document.querySelector('#nametext');
+    t2.addEventListener('keypress', clearMessage);
+
+    let t3 = document.querySelector('#pass');
+    t3.addEventListener('keypress', clearMessage);
+
+    let t4 = document.querySelector('#cpass');
+    t4.addEventListener('keypress', clearMessage);
+
+    let b = document.querySelector('#mybutton');
+    b.addEventListener('click', ProcessForm); //event/function
+
+
+</script>
